@@ -1,7 +1,9 @@
+import { Heading } from "@chakra-ui/react";
+
 export default function Home() {
   return (
     <main>
-      <h1>Home</h1>
+      <Heading color={"blueviolet"}>Home</Heading>
     </main>
   );
 }
