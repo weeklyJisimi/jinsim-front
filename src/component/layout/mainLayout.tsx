@@ -1,4 +1,4 @@
-import { Box, VStack } from '@chakra-ui/react';
+import { Box, Center, VStack } from '@chakra-ui/react';
 import Header from './header';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => (
@@ -10,9 +10,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => (
     maxW={'1280px'} // Note : 왜 1280px로 설정했는지?
   >
     <Header />
-    <Box as={'main'} flexGrow={'1'} w={'100%'}>
+    <Center as={'main'} flexGrow={'1'} w={'100%'}>
       {children}
-    </Box>
+    </Center>
     <Box
       as={'footer'}
       h={'32'}
