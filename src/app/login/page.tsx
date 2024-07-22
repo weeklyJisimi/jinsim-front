@@ -1,4 +1,4 @@
-import { Heading, VStack } from '@chakra-ui/react';
+import { Box, Heading, VStack } from '@chakra-ui/react';
 import KakaologinButton from './kakaoLoginButton';
 
 const Login = () => {
@@ -8,6 +8,9 @@ const Login = () => {
       <Heading as={'span'} fontSize={'2xl'}>
         로그인 페이지
       </Heading>
+      <Box h={'20'} w={'20'} mx={'auto'} bgColor={'orange'}>
+        로고
+      </Box>
       <KakaologinButton />
     </VStack>
   );
