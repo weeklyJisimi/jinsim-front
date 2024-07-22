@@ -1,10 +1,9 @@
 ---
 name: Bug report
 about: 버그 제보
-title: "[BUG] 간단 설명"
+title: '[BUG] 간단 설명'
 labels: "\U0001F41B BUG"
 assignees: ''
-
 ---
 
 ## 🚨 버그 설명
