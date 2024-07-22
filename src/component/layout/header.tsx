@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <HStack
       as={'header'}
-      h={'4.5rem'}
+      h={16}
       w={'100%'}
       px={'6'}
       justify="space-between"
