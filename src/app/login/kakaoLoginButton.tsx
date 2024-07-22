@@ -1,3 +1,5 @@
+// https://developers.kakao.com/docs/latest/ko/kakaologin/design-guide
+// https://www.figma.com/community/file/1232637617420363657
 import { Button, ButtonProps } from '@chakra-ui/react';
 import KakaoSymbol from '@/component/icon/kakaoSymbol';
 

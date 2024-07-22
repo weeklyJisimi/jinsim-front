@@ -1,5 +1,3 @@
-// https://developers.kakao.com/docs/latest/ko/kakaologin/design-guide
-// https://www.figma.com/community/file/1232637617420363657
 import { Icon, IconProps } from '@chakra-ui/react';
 
 const KakaoSymbol = (props: IconProps) => (
