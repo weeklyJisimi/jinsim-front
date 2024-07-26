@@ -1,31 +1,39 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Header from '@/component/layout/header';
-import {
-  Box,
-  VStack,
-  Heading,
-  Img,
-  Button,
-  HStack,
-} from '@chakra-ui/react';
+import { Box, VStack, Heading, Image, Button, HStack } from '@chakra-ui/react';
+import ShareLetterButton from '@/component/common/shareLetter';
+import Link from 'next/link';
 
 const LetterDetailPage = () => {
   const params = useParams();
-  //@todo letterId로 편지 정보를 가져와서 렌더링
+  const router = useRouter();
+
+  const removeLetter = () => {
+    //@todo letterId로 편지 삭제
+    alert(`${params?.id}가 삭제되었습니다.`);
+  };
 
   return (
     <VStack gap={'1rem'} w={'100%'} h={'100vh'}>
       <Header />
-      <VStack>
+      <VStack spacing={4}>
         <Heading size={'lg'}>제목</Heading>
-        <Box w={"50vw"} h={"100%"} bg={"red"}>
-          <Img />
-        </Box>
+        <Image
+          objectFit={'contain'}
+          w={'100%'}
+          h={'100%'}
+          src={'https://picsum.photos/200/300'}
+        />
         <HStack>
-          <Button>삭제하기</Button>
-          <Button>공유하기</Button>
+          <Button onClick={removeLetter}>삭제하기</Button>
+          <ShareLetterButton />
+        </HStack>
+        <HStack>
+          <Link href={'/letter/view'}>
+            <Button>목록으로</Button>
+          </Link>
         </HStack>
       </VStack>
     </VStack>
