@@ -38,11 +38,9 @@ const Page = () => {
   const handleSubmit = () => {
     if (inputRef.current?.value) {
       setSource({
-        relation: formData[0],
-        purpose: formData[1],
-        episode: formData[2],
-        emotion: formData[3],
-        length: inputRef.current?.value || '',
+        purpose: formData[0],
+        recipient: formData[1],
+        episode: inputRef.current?.value || '',
       });
       setState('create');
     }
