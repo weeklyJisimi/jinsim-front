@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, HStack, VStack, Text, Heading } from '@chakra-ui/react';
+import { Box, Button, HStack, VStack, Heading } from '@chakra-ui/react';
 import Header from '@/component/layout/header';
 import Calendar from '@/component/common/calendar';
 import { useState } from 'react';
@@ -22,8 +22,8 @@ const SchedulePanel = () => {
       <Box w={'100%'} p={2} bg={'orange'} border={'1px solid black'}>
         오늘
       </Box>
-      {scheduleData.map((data) => (
-        <HStack w={'100%'} p={1} border={'1px solid black'}>
+      {scheduleData.map((data, index) => (
+        <HStack w={'100%'} p={1} border={'1px solid black'} key={index}>
           <VStack w={'100px'}>
             <Heading size={'md'}>D-18</Heading>
             <Box>{data.date}</Box>
@@ -36,8 +36,8 @@ const SchedulePanel = () => {
       <Box w={'100%'} p={2} bg={'orange'} border={'1px solid black'}>
         다가오는 날
       </Box>
-      {scheduleData.map((data) => (
-        <HStack w={'100%'} p={1} border={'1px solid black'}>
+      {scheduleData.map((data, index) => (
+        <HStack w={'100%'} p={1} border={'1px solid black'} key={index}>
           <VStack w={'100px'}>
             <Heading size={'md'}>D-18</Heading>
             <Box>{data.date}</Box>
