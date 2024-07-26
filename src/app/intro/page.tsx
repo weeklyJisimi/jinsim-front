@@ -136,10 +136,8 @@ export default function IntroPage() {
   }, [pageIndex]);
 
   return (
-    <Suspense>
-      <Center flexDirection={'column'} gap={'1rem'}>
-        {Panel}
-      </Center>
-    </Suspense>
+    <Center flexDirection={'column'} gap={'1rem'}>
+      {Panel}
+    </Center>
   );
 }
