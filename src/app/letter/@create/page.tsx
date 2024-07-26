@@ -41,9 +41,16 @@ const Page = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
   const { source } = useSourceStore();
-  const { letter, addNewLetters } = useLetterStore();
   const { state } = useLetterFlowStore();
   const [currentLetterIdx, setCurrentLetterIdx] = useState(0);
+  const {
+    letter,
+    currentLetterIndex,
+    increaseCurrentLetterIndex,
+    decreaseCurrentLetterIndex,
+    addNewLetters,
+  } = useLetterStore();
+  const { setState } = useLetterFlowStore();
   // TODO : 저장 개수 + 현재 불러올 수 있는 편지 개수 받아와야 함.
   const DUMMYSAVECOUNT = 2;
   const DUMMYLOADCOUNT = 3;
@@ -77,7 +84,11 @@ const Page = () => {
           </HStack>
         </HStack>
         <HStack w={'100%'} justifyContent={'space-between'}>
-          <IconButton aria-label="이전 편지" icon={<ChevronLeftIcon />} />
+          <IconButton
+            onClick={decreaseCurrentLetterIndex}
+            aria-label="이전 편지"
+            icon={<ChevronLeftIcon />}
+          />
           <Editable
             defaultValue={
               '사전 질문의 답변으로 사용자 문체를 파악하고 아키네이터가 질문지 답변을 바탕으로 내용을 구성하여 편지 1을 보여줍니다. 그리고 사용자가 후속으로 직접 수정할 수 있으며 완성된 편지는 사용자 데이터로 남아 기존의 사용자 데이터 + 아카이빙 데이터 형식으로 누적됩니다.'
@@ -88,7 +99,11 @@ const Page = () => {
             <EditablePreview />
             <EditableTextarea h={'100%'} />
           </Editable>
-          <IconButton aria-label="다음 편지" icon={<ChevronRightIcon />} />
+          <IconButton
+            onClick={increaseCurrentLetterIndex}
+            aria-label="다음 편지"
+            icon={<ChevronRightIcon />}
+          />
         </HStack>
         <HStack>
           <Text>From.</Text>
@@ -100,7 +115,7 @@ const Page = () => {
               onClick={onOpen}
             >{`새로운 편지 가져오기 (${DUMMYLOADCOUNT}/3)`}</Button>
           ) : null}
-          <Button>편지 꾸미러 가기</Button>
+          <Button onClick={() => setState('decorate')}>편지 꾸미러 가기</Button>
         </HStack>
       </VStack>
       <AlertDialog
