@@ -19,7 +19,7 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Select,
-  ButtonGroup,
+  SimpleGrid,
   Checkbox,
   Input,
 } from '@chakra-ui/react';
@@ -28,6 +28,7 @@ import { useRef, useState } from 'react';
 import { useToPng } from '@hugocxl/react-to-image';
 import { useLetterFlowStore } from '../letter-flow-store';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
+import { bgImageData, bgImageType } from './bgImage';
 
 const Page = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,6 +56,7 @@ const Page = () => {
     new Date().toISOString().split('T')[0].split('-').join('-')
   );
   const [showDate, setShowDate] = useState(false);
+  const [bgImage, setBgImage] = useState<bgImageType>('bg1');
 
   return (
     <>
@@ -65,9 +67,7 @@ const Page = () => {
           spacing={4}
           alignItems={'flex-start'}
           w="1024px"
-          backgroundImage={
-            'https://cdn.pixabay.com/photo/2023/02/01/21/40/pink-7761356_1280.png'
-          }
+          backgroundImage={bgImageData[bgImage]}
           ref={ref}
         >
           <Heading mx={'auto'}>{letter[currentLetterIndex].title}</Heading>
@@ -174,6 +174,40 @@ const Page = () => {
                     setDate(event.target.value);
                   }}
                 />
+              </VStack>
+              <VStack>
+                <Text>편지지</Text>
+                <SimpleGrid columns={3} spacing={5}>
+                  <Button
+                    onClick={() => setBgImage('bg1')}
+                    colorScheme={bgImage === 'bg1' ? 'orange' : 'gray'}
+                  >
+                    편지지1
+                  </Button>
+                  <Button
+                    onClick={() => setBgImage('bg2')}
+                    colorScheme={bgImage === 'bg2' ? 'orange' : 'gray'}
+                  >
+                    편지지2
+                  </Button>
+                  <Button
+                    onClick={() => setBgImage('bg3')}
+                    colorScheme={bgImage === 'bg3' ? 'orange' : 'gray'}
+                  >
+                    편지지3
+                  </Button>
+                  <Button
+                    onClick={() => setBgImage('bg4')}
+                    colorScheme={bgImage === 'bg4' ? 'orange' : 'gray'}
+                  >
+                    편지지4
+                  </Button>
+                  <Button isDisabled>편지지5</Button>
+                  <Button isDisabled>편지지6</Button>
+                  <Button isDisabled>편지지7</Button>
+                  <Button isDisabled>편지지8</Button>
+                  <Button isDisabled>편지지9</Button>
+                </SimpleGrid>
               </VStack>
             </VStack>
           </DrawerBody>
