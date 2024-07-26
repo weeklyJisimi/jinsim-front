@@ -18,10 +18,11 @@ import {
   AlertDialogOverlay,
   useDisclosure,
   Select,
+  Center,
 } from '@chakra-ui/react';
 import { useSourceStore } from '../letter-source-store';
 import { LetterData, useLetterStore } from '../letter-store';
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { useState, useRef, useEffect } from 'react';
 import { useLetterFlowStore } from '../letter-flow-store';
 
@@ -64,19 +65,46 @@ const Page = () => {
   return (
     <>
       <VStack w={'100%'} alignItems={'flex-start'}>
-        <Editable defaultValue={`편지 ${letter.length}`} mx={'auto'}>
-          <EditablePreview fontSize={'3xl'} />
-          <EditableInput fontSize={'3xl'} />
+        <Editable
+          defaultValue={`편지 ${letter.length}`}
+          mx={'auto'}
+          fontSize={'4xl'}
+          fontWeight={'bold'}
+          textDecoration={'underline'}
+        >
+          <EditablePreview />
+          <EditableInput />
         </Editable>
         <HStack w={'100%'} justifyContent={'space-between'}>
           <HStack>
-            <Text>To.</Text>
-            <Input placeholder={'편지 받는 대상을 적어주세요'} />
+            <Center
+              textColor={'white'}
+              fontWeight={'bold'}
+              bgColor={'#FF6000'}
+              w={'143px'}
+              h={'40px'}
+              rounded={'10px'}
+            >
+              To.
+            </Center>
+            <Input
+              placeholder={'편지 받는 대상을 적어주세요'}
+              border={'2px'}
+              borderColor={'#FF6000'}
+            />
           </HStack>
           {/* TODO : 저장 버튼을 누르면 DB에 임시저장하고, 전역 상태에도 업데이트한다. */}
           <HStack>
-            <Button>{`저장 ${DUMMYSAVECOUNT}/6`}</Button>
-            <Select>
+            <Button
+              w={'158px'}
+              bgColor={'#8B8B8B'}
+              textColor={'white'}
+            >{`저장 ${DUMMYSAVECOUNT}/6`}</Button>
+            <Select
+              placeholder={'임시 저장 편지 불러오기'}
+              border={'2px'}
+              borderColor={'#FF6000'}
+            >
               {draftLetter.map((letter, idx) => (
                 <option key={idx}>{letter.title}</option>
               ))}
@@ -87,14 +115,23 @@ const Page = () => {
           <IconButton
             onClick={decreaseCurrentLetterIndex}
             aria-label="이전 편지"
-            icon={<ChevronLeftIcon />}
+            icon={<ArrowBackIcon />}
+            rounded={'full'}
+            border={'2px'}
+            borderColor={'#FF6000'}
+            bgColor={'#FFE0CD'}
+            textColor={'#FF6000'}
           />
           <Editable
             defaultValue={
               '사전 질문의 답변으로 사용자 문체를 파악하고 아키네이터가 질문지 답변을 바탕으로 내용을 구성하여 편지 1을 보여줍니다. 그리고 사용자가 후속으로 직접 수정할 수 있으며 완성된 편지는 사용자 데이터로 남아 기존의 사용자 데이터 + 아카이빙 데이터 형식으로 누적됩니다.'
             }
             w={'100%'}
-            h={'15em'}
+            h={'20em'}
+            border={'2px'}
+            borderColor={'#FF6000'}
+            p={'10px'}
+            rounded={'10px'}
           >
             <EditablePreview />
             <EditableTextarea h={'100%'} />
@@ -102,20 +139,53 @@ const Page = () => {
           <IconButton
             onClick={increaseCurrentLetterIndex}
             aria-label="다음 편지"
-            icon={<ChevronRightIcon />}
+            icon={<ArrowForwardIcon />}
+            rounded={'full'}
+            border={'2px'}
+            borderColor={'#FF6000'}
+            bgColor={'#FFE0CD'}
+            textColor={'#FF6000'}
           />
         </HStack>
         <HStack>
-          <Text>From.</Text>
-          <Input placeholder={'편지 쓰는 대상을 적어주세요'} />
+          <Center
+            textColor={'white'}
+            fontWeight={'bold'}
+            bgColor={'#FF6000'}
+            w={'143px'}
+            h={'40px'}
+            rounded={'10px'}
+          >
+            From.
+          </Center>
+          <Input
+            placeholder={'편지 쓰는 대상을 적어주세요'}
+            border={'2px'}
+            borderColor={'#FF6000'}
+          />
         </HStack>
         <HStack mx={'auto'}>
           {state === 'create' ? (
             <Button
               onClick={onOpen}
-            >{`새로운 편지 가져오기 (${DUMMYLOADCOUNT}/3)`}</Button>
+              rounded={'30px'}
+              bgColor={'#FF8B45'}
+              textColor={'white'}
+            >
+              <VStack spacing={1}>
+                <Text>새로운 편지 가져오기</Text>
+                <Text fontSize={'xs'}>{`(${DUMMYLOADCOUNT}/3)`}</Text>
+              </VStack>
+            </Button>
           ) : null}
-          <Button onClick={() => setState('decorate')}>편지 꾸미러 가기</Button>
+          <Button
+            onClick={() => setState('decorate')}
+            rounded={'30px'}
+            bgColor={'#FF6000'}
+            textColor={'white'}
+          >
+            편지 꾸미러 가기
+          </Button>
         </HStack>
       </VStack>
       <AlertDialog
