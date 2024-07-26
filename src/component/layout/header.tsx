@@ -1,18 +1,17 @@
-import { Box, HStack } from '@chakra-ui/react';
+import { Box, Center, Heading, HStack } from '@chakra-ui/react';
 
-const Header = () => {
+const Header = ({ title }: { title: string }) => {
   return (
-    <HStack
-      as={'header'}
-      h={16}
-      w={'100%'}
-      px={'6'}
-      justify="space-between"
-      bgColor={'orange'}
-    >
-      <Box>메뉴</Box>
-      <Box>로고</Box>
-      <Box>알림</Box>
+    <HStack as={'header'} h={16} w={'100%'} px={'6'} bgColor={'orange'}>
+      <Box flex={1}>
+        <Heading as="h4" size="md">
+          {title}
+        </Heading>
+      </Box>
+      <Center flex={1} w={'100%'}>
+        로고
+      </Center>
+      <Box flex={1} />
     </HStack>
   );
 };
