@@ -15,16 +15,19 @@ import {
 import { useSourceStore } from '../letter-source-store';
 import { useLetterStore } from '../letter-store';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
 
 const Page = () => {
   const { source } = useSourceStore();
   const { letter } = useLetterStore();
+  const [currentLetterIdx, setCurrentLetterIdx] = useState(0);
   // TODO : 저장 개수 + 현재 불러올 수 있는 편지 개수 받아와야 함.
   const DUMMYSAVECOUNT = 2;
   const DUMMYLOADCOUNT = 3;
+  // TODO : 초기 편지를 불러오는 함수를 만들어야 함.
   return (
     <VStack w={'100%'} alignItems={'flex-start'}>
-      <Editable defaultValue={`편지 ${letter.length + 1}`} mx={'auto'}>
+      <Editable defaultValue={`편지 ${letter.length}`} mx={'auto'}>
         <EditablePreview fontSize={'3xl'} />
         <EditableInput fontSize={'3xl'} />
       </Editable>
@@ -33,6 +36,7 @@ const Page = () => {
           <Text>To.</Text>
           <Input placeholder={'편지 받는 대상을 적어주세요'} />
         </HStack>
+        {/* TODO : 저장 버튼을 누르면 DB에 임시저장하고, 전역 상태에도 업데이트한다. */}
         <Button>{`저장 ${DUMMYSAVECOUNT}/6`}</Button>
       </HStack>
       <HStack w={'100%'} justifyContent={'space-between'}>
