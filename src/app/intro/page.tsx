@@ -43,7 +43,7 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
       return;
     }
     await console.log(answers);
-    setIndex((prev) => prev + 1);
+    setIndex((prev: number) => prev + 1);
   };
 
   return (

@@ -16,7 +16,6 @@ import MainPageLayout from '@/component/layout/mainPageLayout';
 import Jinsimi from '@/component/common/jinsimi';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
-import { useForm } from 'react-hook-form';
 
 export default function Home() {
   return (

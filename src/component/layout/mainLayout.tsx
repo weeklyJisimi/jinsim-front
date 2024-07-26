@@ -1,5 +1,4 @@
-import { Box, Center, VStack } from '@chakra-ui/react';
-import Header from './header';
+import { Center, VStack } from '@chakra-ui/react';
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => (
   <VStack
