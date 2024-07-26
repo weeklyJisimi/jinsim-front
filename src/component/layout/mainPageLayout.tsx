@@ -36,7 +36,7 @@ const MainPageLayout = () => {
       bgColor={'orange'}
     >
       <HStack flex={1}>
-        <Link href={'/calender'}>
+        <Link href={'/calendar'}>
           <Button>캘린더</Button>
         </Link>
         <Link href={'/letter/view'}>

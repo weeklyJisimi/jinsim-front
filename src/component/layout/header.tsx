@@ -4,7 +4,7 @@ const Header = ({ title }: { title?: string }) => {
   return (
     <HStack as={'header'} h={16} w={'100%'} px={'6'} bgColor={'orange'}>
       <Box flex={1}>
-        <Heading as="h4" size="md">
+        <Heading as="h5" size="sm">
           {title ?? ''}
         </Heading>
       </Box>
