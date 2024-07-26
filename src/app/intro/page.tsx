@@ -19,6 +19,7 @@ import Link from 'next/link';
 import Jinsimi from '@/component/common/jinsimi';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
+import { axiosInstance } from '@/utils/axiosInstance';
 
 const CharacterPanel = ({ headText }: { headText: string }) => {
   return (
@@ -44,7 +45,11 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
       alert('모든 문항을 30자 이상 작성해주세요');
       return;
     }
-    await console.log(answers);
+    await axiosInstance.post(`${process.env.NEXT_PUBLIC_API_URL}/analyze-style`, {
+      text1: answers[0],
+      text2: answers[1],
+      text3: answers[2],
+    });
     setIndex((prev: number) => prev + 1);
   };
 
@@ -67,6 +72,7 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
             </h2>
             <AccordionPanel pb={4}>
               <Textarea
+                maxLength={300}
                 placeholder="최소 30자 이상 300자 이하 작성"
                 value={answers[index]}
                 onChange={(e) => {
@@ -96,13 +102,13 @@ export default function IntroPage() {
       `${process.env.NEXT_PUBLIC_API_URL}/auth/kakao/callback`,
       {
         code,
-      }
+      },
     );
     console.log('res', res);
   };
-  useEffect(() => {
-    getAuth();
-  }, []);
+  // useEffect(() => {
+  //   getAuth();
+  // }, []);
 
   const Panel = useMemo(() => {
     switch (pageIndex) {
