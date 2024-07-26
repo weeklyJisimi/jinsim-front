@@ -14,24 +14,22 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
-type InitialLetterFormType = {
-  to: string;
-  purpose: string;
-  episode: string;
-  emotion: string;
-  length: string;
-};
+import { useLetterFlowStore } from '../letter-flow-store';
+import { SourceType, useSourceStore } from '../letter-source-store';
 
 const Page = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors },
-  } = useForm<InitialLetterFormType>();
+    formState: { errors, isSubmitting },
+  } = useForm<SourceType>();
+  const { setState } = useLetterFlowStore();
+  const { setSource } = useSourceStore();
 
-  const onSubmit: SubmitHandler<InitialLetterFormType> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<SourceType> = (data) => {
+    // 전역 상태로 저장하기
+    setSource(data);
+    setState('create');
   };
 
   return (
@@ -106,7 +104,7 @@ const Page = () => {
                   />
                 </FormControl>
               </VStack>
-              <Button mt={8} w={'full'} type="submit">
+              <Button mt={8} w={'full'} type="submit" isLoading={isSubmitting}>
                 편지 생성하기
               </Button>
             </form>
