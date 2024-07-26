@@ -2,7 +2,7 @@
 
 import { Box, Button, HStack, VStack, Heading } from '@chakra-ui/react';
 import Header from '@/component/layout/header';
-import Calendar from '@/component/common/calendar';
+import Calendar, { Value } from '@/component/common/calendar';
 import { useState } from 'react';
 
 const scheduleData = [
@@ -52,8 +52,8 @@ const SchedulePanel = () => {
 };
 
 const CalendarPage = () => {
-  const [date, setDate] = useState(new Date());
-  const onChange = (value) => {
+  const [date, setDate] = useState<Value>(new Date());
+  const onChange = (value: Value) => {
     console.log('value', value);
     setDate(value);
   };

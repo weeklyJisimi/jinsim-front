@@ -6,7 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import dayjs from 'dayjs';
 
 type ValuePiece = Date | null;
-type Value = ValuePiece | [ValuePiece, ValuePiece];
+export type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const CalendarWrapper = css`
   // 전체 캘린더 영역
