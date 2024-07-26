@@ -20,6 +20,8 @@ import {
   NumberDecrementStepper,
   Select,
   ButtonGroup,
+  Checkbox,
+  Input,
 } from '@chakra-ui/react';
 import { useLetterStore } from '../letter-store';
 import { useRef, useState } from 'react';
@@ -49,13 +51,17 @@ const Page = () => {
 
   const [fontWeight, setFontWeight] = useState('normal');
   const [fontSize, setFontSize] = useState(16);
+  const [date, setDate] = useState(
+    new Date().toISOString().split('T')[0].split('-').join('-')
+  );
+  const [showDate, setShowDate] = useState(false);
 
   return (
     <>
       <VStack>
         {/* 편지 이미지 컴포넌트 */}
         <VStack
-          p={2}
+          p={6}
           spacing={4}
           alignItems={'flex-start'}
           w="1024px"
@@ -79,9 +85,12 @@ const Page = () => {
               </Text>
             ))}
           </Box>
-          <Text
-            fontWeight={'bold'}
-          >{`From. ${letter[currentLetterIndex].from}`}</Text>
+          <HStack w={'100%'} justifyContent={'space-between'}>
+            <Text
+              fontWeight={'bold'}
+            >{`From. ${letter[currentLetterIndex].from}`}</Text>
+            {showDate && <Text fontWeight={'bold'}>{`Date. ${date}`}</Text>}
+          </HStack>
         </VStack>
         <HStack>
           <Button onClick={() => setState('create')}>
@@ -146,6 +155,25 @@ const Page = () => {
                   <option value="extrabold">extrabold</option>
                   <option value="black">black</option>
                 </Select>
+              </VStack>
+              <VStack>
+                <Text>텍스트</Text>
+                <Checkbox
+                  isChecked={showDate}
+                  onChange={() => {
+                    setShowDate(!showDate);
+                  }}
+                >
+                  날짜 표시하기
+                </Checkbox>
+                <Input
+                  placeholder="날짜"
+                  type="date"
+                  value={date}
+                  onChange={(event) => {
+                    setDate(event.target.value);
+                  }}
+                />
               </VStack>
             </VStack>
           </DrawerBody>
