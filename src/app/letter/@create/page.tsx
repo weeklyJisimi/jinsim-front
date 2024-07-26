@@ -95,8 +95,16 @@ const Page = () => {
           </HStack>
           {/* TODO : 저장 버튼을 누르면 DB에 임시저장하고, 전역 상태에도 업데이트한다. */}
           <HStack>
-            <Button>{`저장 ${DUMMYSAVECOUNT}/6`}</Button>
-            <Select>
+            <Button
+              w={'158px'}
+              bgColor={'#8B8B8B'}
+              textColor={'white'}
+            >{`저장 ${DUMMYSAVECOUNT}/6`}</Button>
+            <Select
+              placeholder={'임시 저장 편지 불러오기'}
+              border={'2px'}
+              borderColor={'#FF6000'}
+            >
               {draftLetter.map((letter, idx) => (
                 <option key={idx}>{letter.title}</option>
               ))}
@@ -160,9 +168,24 @@ const Page = () => {
           {state === 'create' ? (
             <Button
               onClick={onOpen}
-            >{`새로운 편지 가져오기 (${DUMMYLOADCOUNT}/3)`}</Button>
+              rounded={'30px'}
+              bgColor={'#FF8B45'}
+              textColor={'white'}
+            >
+              <VStack spacing={1}>
+                <Text>새로운 편지 가져오기</Text>
+                <Text fontSize={'xs'}>{`(${DUMMYLOADCOUNT}/3)`}</Text>
+              </VStack>
+            </Button>
           ) : null}
-          <Button onClick={() => setState('decorate')}>편지 꾸미러 가기</Button>
+          <Button
+            onClick={() => setState('decorate')}
+            rounded={'30px'}
+            bgColor={'#FF6000'}
+            textColor={'white'}
+          >
+            편지 꾸미러 가기
+          </Button>
         </HStack>
       </VStack>
       <AlertDialog
