@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 
 const ViewDetail = ({ id }: { id: any }) => {
+  console.log('id', id);
   return <Box>편지함 디테일</Box>;
 };
 
