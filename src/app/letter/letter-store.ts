@@ -11,6 +11,7 @@ type LetterStore = {
   letter: LetterData[];
   currentLetterIndex: number;
   addNewLetter: (letter: LetterData) => void;
+  addNewLetters: (letters: LetterData[]) => void;
   decreaseCurrentLetterIndex: () => void;
   increaseCurrentLetterIndex: () => void;
 };
@@ -30,6 +31,8 @@ export const useLetterStore = create<LetterStore>((set) => ({
   currentLetterIndex: defaultIndex,
   addNewLetter: (letter) =>
     set((state) => ({ letter: [...state.letter, letter] })),
+  addNewLetters: (letters) =>
+    set((state) => ({ letter: [...state.letter, ...letters] })),
   decreaseCurrentLetterIndex: () =>
     set((state) => ({
       currentLetterIndex:

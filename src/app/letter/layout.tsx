@@ -15,7 +15,7 @@ const Layout = ({ children, initial, create, decorate }: LayoutProps) => {
   if (state === 'initial') {
     return <>{initial}</>;
   }
-  if (state === 'create') {
+  if (state === 'create' || state === 'edit') {
     return <>{create}</>;
   }
   if (state === 'decorate') {
