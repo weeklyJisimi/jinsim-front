@@ -2,48 +2,39 @@
 
 import { Box, Grid, GridItem, HStack, Select, VStack } from '@chakra-ui/react';
 import Header from '@/component/layout/header';
+import Link from 'next/link';
 
 const View = () => {
   const mockUpData = [
     {
       title: '편지1',
       img: 'img1',
+      id: 1,
     },
     {
       title: '편지2',
       img: 'img2',
+      id: 2,
     },
     {
       title: '편지3',
       img: 'img3',
+      id: 3,
     },
     {
       title: '편지4',
       img: 'img4',
+      id: 4,
     },
     {
       title: '편지5',
       img: 'img5',
+      id: 5,
     },
     {
       title: '편지6',
       img: 'img6',
-    },
-    {
-      title: '편지7',
-      img: 'img7',
-    },
-    {
-      title: '편지8',
-      img: 'img8',
-    },
-    {
-      title: '편지9',
-      img: 'img9',
-    },
-    {
-      title: '편지10',
-      img: 'img10',
+      id: 6,
     },
   ];
 
@@ -83,9 +74,11 @@ const View = () => {
           {mockUpData.map((data) => (
             <GridItem w="100%" h="35vh" border={'1px solid'} key={data?.title}>
               <VStack h={'100%'}>
-                <Box bg={'white'} flexGrow={1}>
-                  {data?.img}
-                </Box>
+                <Link href={`/letter/view/${data?.id}`} w={'100%'} h={'100%'}>
+                  <Box bg={'white'} flexGrow={1}>
+                    {data?.img}
+                  </Box>
+                </Link>
                 <Box h={'2rem'}>{data?.title}</Box>
               </VStack>
             </GridItem>
