@@ -22,7 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { useSourceStore } from '../letter-source-store';
 import { LetterData, useLetterStore } from '../letter-store';
-import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { useState, useRef, useEffect } from 'react';
 import { useLetterFlowStore } from '../letter-flow-store';
 
@@ -107,14 +107,23 @@ const Page = () => {
           <IconButton
             onClick={decreaseCurrentLetterIndex}
             aria-label="이전 편지"
-            icon={<ChevronLeftIcon />}
+            icon={<ArrowBackIcon />}
+            rounded={'full'}
+            border={'2px'}
+            borderColor={'#FF6000'}
+            bgColor={'#FFE0CD'}
+            textColor={'#FF6000'}
           />
           <Editable
             defaultValue={
               '사전 질문의 답변으로 사용자 문체를 파악하고 아키네이터가 질문지 답변을 바탕으로 내용을 구성하여 편지 1을 보여줍니다. 그리고 사용자가 후속으로 직접 수정할 수 있으며 완성된 편지는 사용자 데이터로 남아 기존의 사용자 데이터 + 아카이빙 데이터 형식으로 누적됩니다.'
             }
             w={'100%'}
-            h={'15em'}
+            h={'20em'}
+            border={'2px'}
+            borderColor={'#FF6000'}
+            p={'10px'}
+            rounded={'10px'}
           >
             <EditablePreview />
             <EditableTextarea h={'100%'} />
@@ -122,7 +131,12 @@ const Page = () => {
           <IconButton
             onClick={increaseCurrentLetterIndex}
             aria-label="다음 편지"
-            icon={<ChevronRightIcon />}
+            icon={<ArrowForwardIcon />}
+            rounded={'full'}
+            border={'2px'}
+            borderColor={'#FF6000'}
+            bgColor={'#FFE0CD'}
+            textColor={'#FF6000'}
           />
         </HStack>
         <HStack>

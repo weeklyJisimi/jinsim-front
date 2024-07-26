@@ -22,7 +22,7 @@ const Layout = ({ children, initial, create, decorate }: LayoutProps) => {
     return <>{decorate}</>;
   }
 
-  return <>{children}</>;
+  return <>{create}</>;
 };
 
 export default Layout;
