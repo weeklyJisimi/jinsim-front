@@ -1,7 +1,7 @@
-import {Box} from "@chakra-ui/react";
+import { Box } from '@chakra-ui/react';
 
 const View = () => {
-    return (<Box>편지함 목록</Box>)
-}
+  return <Box>편지함 목록</Box>;
+};
 
-export default View
+export default View;

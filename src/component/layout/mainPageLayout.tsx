@@ -1,5 +1,8 @@
+'use client';
+
 import {
   Box,
+  Button,
   HStack,
   IconButton,
   Popover,
@@ -11,6 +14,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { BellIcon } from '@chakra-ui/icons';
+import Jinsimi from '@/component/common/jinsimi';
+import Link from 'next/link';
 
 const MainPageLayout = () => {
   const alertData = [
@@ -22,20 +27,31 @@ const MainPageLayout = () => {
   ];
 
   return (
-    <VStack>
-      <HStack
-        as={'header'}
-        h={16}
-        w={'100%'}
-        px={'6'}
-        justify="space-between"
-        bgColor={'orange'}
-      >
-        <Box>편지함</Box>
-        <Box>로고</Box>
+    <HStack
+      as={'header'}
+      h={16}
+      w={'100%'}
+      px={'6'}
+      justify="space-between"
+      bgColor={'orange'}
+    >
+      <HStack flex={1}>
+        <Link href={'/calender'}>
+          <Button>캘린더</Button>
+        </Link>
+        <Link href={'/view'}>
+          <Button>편지함</Button>
+        </Link>
+      </HStack>
+      <Box flex={1}>로고</Box>
+      <Box flex={1}>
         <Popover>
           <PopoverTrigger>
-            <IconButton icon={<BellIcon />} fontSize="1.5rem" />
+            <IconButton
+              icon={<BellIcon />}
+              fontSize="1.5rem"
+              aria-label={'bell-icon'}
+            />
           </PopoverTrigger>
           <PopoverContent>
             <PopoverArrow />
@@ -50,16 +66,8 @@ const MainPageLayout = () => {
             </PopoverBody>
           </PopoverContent>
         </Popover>
-      </HStack>
-      <HStack>
-        <Box>캘린더</Box>
-        <VStack>
-          <Box>편지 안 쓴지 ______ 일 째</Box>
-          <Box>편지를 작성하여 나만의 진심이를 키워보세요!</Box>
-        </VStack>
-        <Box />
-      </HStack>
-    </VStack>
+      </Box>
+    </HStack>
   );
 };
 
