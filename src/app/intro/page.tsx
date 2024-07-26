@@ -14,9 +14,11 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Jinsimi from '@/component/common/jinsimi';
+import axios from 'axios';
+import { useSearchParams } from 'next/navigation';
 
 const CharacterPanel = ({ headText }: { headText: string }) => {
   return (
@@ -48,7 +50,7 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
 
   return (
     <VStack my={2}>
-      <Heading>(상황에 맞춰) 자유롭게 편지를 써주세요!</Heading>
+      <Heading>(진심이가 되어) 자유롭게 편지를 써주세요!</Heading>
       <Box w={'30vh'}>
         <Jinsimi />
       </Box>
@@ -86,6 +88,21 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
 
 export default function IntroPage() {
   const [pageIndex, setPageIndex] = useState(0);
+  const searchParams = useSearchParams();
+  const code = searchParams.get('code');
+
+  const getAuth = async () => {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/kakao/callback`,
+      {
+        code,
+      }
+    );
+    console.log('res', res);
+  };
+  useEffect(() => {
+    getAuth();
+  }, []);
 
   const Panel = useMemo(() => {
     switch (pageIndex) {
