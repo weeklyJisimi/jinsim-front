@@ -2,13 +2,12 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import Header from '@/component/layout/header';
-import { Box, VStack, Heading, Image, Button, HStack } from '@chakra-ui/react';
+import { VStack, Heading, Image, Button, HStack } from '@chakra-ui/react';
 import ShareLetterButton from '@/component/common/shareLetter';
 import Link from 'next/link';
 
 const LetterDetailPage = () => {
   const params = useParams();
-  const router = useRouter();
 
   const removeLetter = () => {
     //@todo letterId로 편지 삭제
@@ -24,6 +23,7 @@ const LetterDetailPage = () => {
           objectFit={'contain'}
           w={'100%'}
           h={'100%'}
+          alt={'편지 이미지'}
           src={'https://picsum.photos/200/300'}
         />
         <HStack>

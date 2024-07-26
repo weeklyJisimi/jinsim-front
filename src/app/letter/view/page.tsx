@@ -74,7 +74,7 @@ const View = () => {
           {mockUpData.map((data) => (
             <GridItem w="100%" h="35vh" border={'1px solid'} key={data?.title}>
               <VStack h={'100%'}>
-                <Link href={`/letter/view/${data?.id}`} w={'100%'} h={'100%'}>
+                <Link href={`/letter/view/${data?.id}`}>
                   <Box bg={'white'} flexGrow={1}>
                     {data?.img}
                   </Box>
