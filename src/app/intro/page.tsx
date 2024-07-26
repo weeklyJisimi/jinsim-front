@@ -14,7 +14,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Jinsimi from '@/component/common/jinsimi';
 import axios from 'axios';
@@ -136,8 +136,10 @@ export default function IntroPage() {
   }, [pageIndex]);
 
   return (
-    <Center flexDirection={'column'} gap={'1rem'}>
-      {Panel}
-    </Center>
+    <Suspense>
+      <Center flexDirection={'column'} gap={'1rem'}>
+        {Panel}
+      </Center>
+    </Suspense>
   );
 }
