@@ -14,7 +14,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { Suspense, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import Jinsimi from '@/component/common/jinsimi';
 import axios from 'axios';

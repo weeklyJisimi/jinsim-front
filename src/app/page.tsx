@@ -22,6 +22,7 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
   const { setState } = useLetterFlowStore();
   const router = useRouter();
+
   return (
     <VStack w={'100%'} h={'100vh'}>
       <MainPageLayout />
