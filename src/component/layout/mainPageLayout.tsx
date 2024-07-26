@@ -39,7 +39,7 @@ const MainPageLayout = () => {
         <Link href={'/calender'}>
           <Button>캘린더</Button>
         </Link>
-        <Link href={'/view'}>
+        <Link href={'/letter/view'}>
           <Button>편지함</Button>
         </Link>
       </HStack>
