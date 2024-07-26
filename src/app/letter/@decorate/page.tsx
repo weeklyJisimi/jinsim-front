@@ -48,6 +48,7 @@ const Page = () => {
   );
 
   const [fontWeight, setFontWeight] = useState('normal');
+  const [fontSize, setFontSize] = useState(16);
 
   return (
     <>
@@ -69,7 +70,11 @@ const Page = () => {
           >{`To. ${letter[currentLetterIndex].to}`}</Text>
           <Box>
             {letter[currentLetterIndex].body.split('\n').map((line, index) => (
-              <Text key={index} fontWeight={fontWeight}>
+              <Text
+                key={index}
+                fontWeight={fontWeight}
+                fontSize={`${fontSize}px`}
+              >
                 {line}
               </Text>
             ))}
@@ -110,7 +115,14 @@ const Page = () => {
                   <option value="option2">option2</option>
                   <option value="option3">option3</option>
                 </Select>
-                <NumberInput>
+                <NumberInput
+                  defaultValue={16}
+                  min={10}
+                  max={20}
+                  onChange={(_valueAsString, valueAsNumber) => {
+                    setFontSize(valueAsNumber);
+                  }}
+                >
                   <NumberInputField />
                   <NumberInputStepper>
                     <NumberIncrementStepper />
