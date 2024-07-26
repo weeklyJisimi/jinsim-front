@@ -1,11 +1,11 @@
 import { Box, Center, Heading, HStack } from '@chakra-ui/react';
 
-const Header = ({ title }: { title: string }) => {
+const Header = ({ title }: { title?: string }) => {
   return (
     <HStack as={'header'} h={16} w={'100%'} px={'6'} bgColor={'orange'}>
       <Box flex={1}>
         <Heading as="h4" size="md">
-          {title}
+          {title ?? ''}
         </Heading>
       </Box>
       <Center flex={1} w={'100%'}>
