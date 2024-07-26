@@ -14,28 +14,46 @@ import {
   AlertDialog,
   AlertDialogBody,
   AlertDialogFooter,
-  AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
   useDisclosure,
+  Select,
 } from '@chakra-ui/react';
 import { useSourceStore } from '../letter-source-store';
-import { useLetterStore } from '../letter-store';
+import { LetterData, useLetterStore } from '../letter-store';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useLetterFlowStore } from '../letter-flow-store';
+
+// TODO 임시 저장 데이터가 있으면 불러오도록 해야 함.
+const { data: draftLetter }: { data: LetterData[] } = {
+  data: [
+    {
+      title: '임시 저장 편지~~',
+      body: '임시 저장 편지 내용~~',
+      to: '임시 저장 받는 대상~~',
+      from: '임시 저장 보내는 대상~~',
+    },
+  ],
+};
 
 const Page = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
   const { source } = useSourceStore();
-  const { letter } = useLetterStore();
+  const { letter, addNewLetters } = useLetterStore();
   const { state } = useLetterFlowStore();
   const [currentLetterIdx, setCurrentLetterIdx] = useState(0);
   // TODO : 저장 개수 + 현재 불러올 수 있는 편지 개수 받아와야 함.
   const DUMMYSAVECOUNT = 2;
   const DUMMYLOADCOUNT = 3;
   // TODO : 초기 편지를 불러오는 함수를 만들어야 함.
+
+  useEffect(() => {
+    if (draftLetter) {
+      addNewLetters(draftLetter);
+    }
+  }, [addNewLetters]);
   return (
     <>
       <VStack w={'100%'} alignItems={'flex-start'}>
@@ -49,7 +67,14 @@ const Page = () => {
             <Input placeholder={'편지 받는 대상을 적어주세요'} />
           </HStack>
           {/* TODO : 저장 버튼을 누르면 DB에 임시저장하고, 전역 상태에도 업데이트한다. */}
-          <Button>{`저장 ${DUMMYSAVECOUNT}/6`}</Button>
+          <HStack>
+            <Button>{`저장 ${DUMMYSAVECOUNT}/6`}</Button>
+            <Select>
+              {draftLetter.map((letter, idx) => (
+                <option key={idx}>{letter.title}</option>
+              ))}
+            </Select>
+          </HStack>
         </HStack>
         <HStack w={'100%'} justifyContent={'space-between'}>
           <IconButton aria-label="이전 편지" icon={<ChevronLeftIcon />} />
