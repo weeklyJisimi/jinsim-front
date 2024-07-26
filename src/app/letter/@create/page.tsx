@@ -23,12 +23,14 @@ import { useSourceStore } from '../letter-source-store';
 import { useLetterStore } from '../letter-store';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { useState, useRef } from 'react';
+import { useLetterFlowStore } from '../letter-flow-store';
 
 const Page = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
   const { source } = useSourceStore();
   const { letter } = useLetterStore();
+  const { state } = useLetterFlowStore();
   const [currentLetterIdx, setCurrentLetterIdx] = useState(0);
   // TODO : 저장 개수 + 현재 불러올 수 있는 편지 개수 받아와야 함.
   const DUMMYSAVECOUNT = 2;
@@ -68,9 +70,11 @@ const Page = () => {
           <Input placeholder={'편지 쓰는 대상을 적어주세요'} />
         </HStack>
         <HStack mx={'auto'}>
-          <Button
-            onClick={onOpen}
-          >{`새로운 편지 가져오기 (${DUMMYLOADCOUNT}/3)`}</Button>
+          {state === 'create' ? (
+            <Button
+              onClick={onOpen}
+            >{`새로운 편지 가져오기 (${DUMMYLOADCOUNT}/3)`}</Button>
+          ) : null}
           <Button>편지 꾸미러 가기</Button>
         </HStack>
       </VStack>

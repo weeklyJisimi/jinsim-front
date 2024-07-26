@@ -16,8 +16,12 @@ import MainPageLayout from '@/component/layout/mainPageLayout';
 import Jinsimi from '@/component/common/jinsimi';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
+import { useLetterFlowStore } from './letter/letter-flow-store';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const { setState } = useLetterFlowStore();
+  const router = useRouter();
   return (
     <VStack w={'100%'} h={'100vh'}>
       <MainPageLayout />
@@ -31,7 +35,14 @@ export default function Home() {
               <Link href={'/letter'}>
                 <Button>편지 작성하기</Button>
               </Link>
-              <Button>편지 불러오기</Button>
+              <Button
+                onClick={() => {
+                  setState('edit');
+                  router.push('/letter');
+                }}
+              >
+                편지 불러오기
+              </Button>
             </HStack>
           </VStack>
           <Box />
