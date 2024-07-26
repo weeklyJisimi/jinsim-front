@@ -18,6 +18,7 @@ import {
   AlertDialogOverlay,
   useDisclosure,
   Select,
+  Center,
 } from '@chakra-ui/react';
 import { useSourceStore } from '../letter-source-store';
 import { LetterData, useLetterStore } from '../letter-store';
@@ -64,14 +65,33 @@ const Page = () => {
   return (
     <>
       <VStack w={'100%'} alignItems={'flex-start'}>
-        <Editable defaultValue={`편지 ${letter.length}`} mx={'auto'}>
-          <EditablePreview fontSize={'3xl'} />
-          <EditableInput fontSize={'3xl'} />
+        <Editable
+          defaultValue={`편지 ${letter.length}`}
+          mx={'auto'}
+          fontSize={'4xl'}
+          fontWeight={'bold'}
+          textDecoration={'underline'}
+        >
+          <EditablePreview />
+          <EditableInput />
         </Editable>
         <HStack w={'100%'} justifyContent={'space-between'}>
           <HStack>
-            <Text>To.</Text>
-            <Input placeholder={'편지 받는 대상을 적어주세요'} />
+            <Center
+              textColor={'white'}
+              fontWeight={'bold'}
+              bgColor={'#FF6000'}
+              w={'143px'}
+              h={'40px'}
+              rounded={'10px'}
+            >
+              To.
+            </Center>
+            <Input
+              placeholder={'편지 받는 대상을 적어주세요'}
+              border={'2px'}
+              borderColor={'#FF6000'}
+            />
           </HStack>
           {/* TODO : 저장 버튼을 누르면 DB에 임시저장하고, 전역 상태에도 업데이트한다. */}
           <HStack>
@@ -106,8 +126,21 @@ const Page = () => {
           />
         </HStack>
         <HStack>
-          <Text>From.</Text>
-          <Input placeholder={'편지 쓰는 대상을 적어주세요'} />
+          <Center
+            textColor={'white'}
+            fontWeight={'bold'}
+            bgColor={'#FF6000'}
+            w={'143px'}
+            h={'40px'}
+            rounded={'10px'}
+          >
+            From.
+          </Center>
+          <Input
+            placeholder={'편지 쓰는 대상을 적어주세요'}
+            border={'2px'}
+            borderColor={'#FF6000'}
+          />
         </HStack>
         <HStack mx={'auto'}>
           {state === 'create' ? (
