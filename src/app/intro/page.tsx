@@ -9,20 +9,14 @@ import {
   Box,
   Button,
   Center,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
   Heading,
   HStack,
-  Input,
   Textarea,
   VStack,
 } from '@chakra-ui/react';
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Jinsimi from '@/component/common/jinsimi';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 
 const CharacterPanel = ({ headText }: { headText: string }) => {
   return (
@@ -42,20 +36,15 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
     'Q3. (진심이가 되어)층간소음 문제를 겪은 아랫집 주민에게 사과하는 메시지를 건네보세요.',
   ];
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    console.log(data);
+  const [answers, setAnswers] = useState(['', '', '']);
+  const onSubmit = async () => {
+    if (answers.some((answer) => answer.length < 30)) {
+      alert('모든 문항을 30자 이상 작성해주세요');
+      return;
+    }
+    await console.log(answers);
     setIndex((prev) => prev + 1);
   };
-
-  function onSubmit2(values) {
-    console.log('values', values);
-  }
 
   return (
     <VStack my={2}>
@@ -63,61 +52,34 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
       <Box w={'30vh'}>
         <Jinsimi />
       </Box>
-      <form onSubmit={handleSubmit(onSubmit2)}>
-        <FormControl isInvalid={errors.name}>
-          <FormLabel htmlFor="name">First name</FormLabel>
-          <Input id="name" placeholder="name" {...register('name')} />
-          <FormErrorMessage>
-            {errors.name && errors.name.message}
-          </FormErrorMessage>
-        </FormControl>
-        <Button
-          mt={4}
-          colorScheme="teal"
-          isLoading={isSubmitting}
-          type="submit"
-        >
-          Submit
-        </Button>
-      </form>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl>
-          <Accordion w={'100%'} allowMultiple>
-            {QUESTIONS.map((question, index) => (
-              <AccordionItem key={index}>
-                <h2>
-                  <AccordionButton>
-                    <Box as="span" flex="1" textAlign="left">
-                      {question}
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                <AccordionPanel pb={4}>
-                  <Textarea
-                    placeholder="최소 30자 이상 300자 이하 작성"
-                    id={`answer-${index}`}
-                    {...register(`answer-${index}`, {
-                      required: 'This is required',
-                      minLength: {
-                        value: 30,
-                        message: 'Minimum length should be 4',
-                      },
-                      maxLength: {
-                        value: 300,
-                        message: 'Maximum length should be 300',
-                      },
-                    })}
-                  />
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </FormControl>
-        <HStack justify={'center'} mt={2}>
-          <Button type="submit">다음</Button>
-        </HStack>
-      </form>
+      <Accordion w={'100%'} allowMultiple>
+        {QUESTIONS.map((question, index) => (
+          <AccordionItem key={index}>
+            <h2>
+              <AccordionButton>
+                <Box as="span" flex="1" textAlign="left">
+                  {question}
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              <Textarea
+                placeholder="최소 30자 이상 300자 이하 작성"
+                value={answers[index]}
+                onChange={(e) => {
+                  const newAnswers = [...answers];
+                  newAnswers[index] = e.target.value;
+                  setAnswers(newAnswers);
+                }}
+              />
+            </AccordionPanel>
+          </AccordionItem>
+        ))}
+      </Accordion>
+      <HStack justify={'center'} mt={2}>
+        <Button onClick={onSubmit}>다음</Button>
+      </HStack>
     </VStack>
   );
 };

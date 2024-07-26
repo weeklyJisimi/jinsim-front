@@ -3,6 +3,7 @@
 import {
   Box,
   Button,
+  Center,
   HStack,
   IconButton,
   Popover,
@@ -14,7 +15,6 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { BellIcon } from '@chakra-ui/icons';
-import Jinsimi from '@/component/common/jinsimi';
 import Link from 'next/link';
 
 const MainPageLayout = () => {
@@ -43,8 +43,8 @@ const MainPageLayout = () => {
           <Button>편지함</Button>
         </Link>
       </HStack>
-      <Box flex={1}>로고</Box>
-      <Box flex={1}>
+      <Center flex={1}>로고</Center>
+      <HStack justify="flex-end" flex={1}>
         <Popover>
           <PopoverTrigger>
             <IconButton
@@ -66,7 +66,7 @@ const MainPageLayout = () => {
             </PopoverBody>
           </PopoverContent>
         </Popover>
-      </Box>
+      </HStack>
     </HStack>
   );
 };
