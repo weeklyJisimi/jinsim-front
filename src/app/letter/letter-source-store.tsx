@@ -2,11 +2,9 @@ import { create } from 'zustand';
 
 // 편지 생성에 필요한 데이터
 export type SourceType = {
-  relation: string;
   purpose: string;
+  recipient: string;
   episode: string;
-  emotion: string;
-  length: string;
 };
 
 export type SourceKey = keyof SourceType;

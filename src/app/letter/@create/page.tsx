@@ -25,18 +25,21 @@ import { LetterData, useLetterStore } from '../letter-store';
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import { useState, useRef, useEffect } from 'react';
 import { useLetterFlowStore } from '../letter-flow-store';
+import axios from 'axios';
+import { useCharacteristicsStore } from '../style_characteristics';
+import Loading from './loading';
 
-// TODO 임시 저장 데이터가 있으면 불러오도록 해야 함.
-const { data: draftLetter }: { data: LetterData[] } = {
-  data: [
-    {
-      title: '임시 저장 편지~~',
-      body: '임시 저장 편지 내용~~',
-      to: '임시 저장 받는 대상~~',
-      from: '임시 저장 보내는 대상~~',
-    },
-  ],
-};
+// // TODO 임시 저장 데이터가 있으면 불러오도록 해야 함.
+// const { data: draftLetter }: { data: LetterData[] } = {
+//   data: [
+//     {
+//       title: '임시 저장 편지~~',
+//       body: '임시 저장 편지 내용~~',
+//       to: '임시 저장 받는 대상~~',
+//       from: '임시 저장 보내는 대상~~',
+//     },
+//   ],
+// };
 
 const Page = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,30 +53,87 @@ const Page = () => {
     increaseCurrentLetterIndex,
     decreaseCurrentLetterIndex,
     addNewLetters,
+    addNewLetter,
+    setLetterIndex,
   } = useLetterStore();
   const { setState } = useLetterFlowStore();
+  const { styleCharacteristics } = useCharacteristicsStore();
   // TODO : 저장 개수 + 현재 불러올 수 있는 편지 개수 받아와야 함.
   const DUMMYSAVECOUNT = 2;
   const DUMMYLOADCOUNT = 3;
   // TODO : 초기 편지를 불러오는 함수를 만들어야 함.
 
+  const titleRef = useRef<HTMLInputElement>(null);
+  const toRef = useRef<HTMLInputElement>(null);
+  const fromRef = useRef<HTMLInputElement>(null);
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
+
   useEffect(() => {
-    if (draftLetter) {
-      addNewLetters(draftLetter);
+    const generateLetter = async () => {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/generate-letter-from-style`,
+        {
+          ...source,
+          style_characteristics: styleCharacteristics,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      addNewLetter({
+        title: `새로운 편지`,
+        to: '',
+        from: '',
+        body: response.data.generated_letter,
+      });
+    };
+    if (source) {
+      generateLetter();
     }
-  }, [addNewLetters]);
+  }, []);
+
+  const goToDecorate = () => {
+    if (
+      titleRef.current?.value === '' ||
+      toRef.current?.value === '' ||
+      fromRef.current?.value === '' ||
+      bodyRef.current?.value === ''
+    ) {
+      alert('입력되지 않은 항목이 있습니다.');
+      return;
+    }
+    addNewLetter({
+      title: titleRef.current?.value || '',
+      to: toRef.current?.value || '',
+      from: fromRef.current?.value || '',
+      body: bodyRef.current?.value || '',
+    });
+    setLetterIndex(letter.length - 1);
+    setState('decorate');
+  };
+
+  // useEffect(() => {
+  //   if (draftLetter) {
+  //     addNewLetters(draftLetter);
+  //   }
+  // }, [addNewLetters]);
+
+  if (letter.length === 0) return <Loading />;
+
   return (
     <>
       <VStack w={'100%'} alignItems={'flex-start'}>
         <Editable
-          defaultValue={`편지 ${letter.length}`}
+          defaultValue={letter[currentLetterIndex].title}
           mx={'auto'}
           fontSize={'4xl'}
           fontWeight={'bold'}
           textDecoration={'underline'}
         >
           <EditablePreview />
-          <EditableInput />
+          <EditableInput ref={titleRef} />
         </Editable>
         <HStack w={'100%'} justifyContent={'space-between'}>
           <HStack>
@@ -88,19 +148,21 @@ const Page = () => {
               To.
             </Center>
             <Input
+              ref={toRef}
               placeholder={'편지 받는 대상을 적어주세요'}
               border={'2px'}
               borderColor={'#FF6000'}
+              defaultValue={letter[currentLetterIndex].to}
             />
           </HStack>
           {/* TODO : 저장 버튼을 누르면 DB에 임시저장하고, 전역 상태에도 업데이트한다. */}
           <HStack>
-            <Button
+            {/* <Button
               w={'158px'}
               bgColor={'#8B8B8B'}
               textColor={'white'}
-            >{`저장 ${DUMMYSAVECOUNT}/6`}</Button>
-            <Select
+            >{`저장 ${DUMMYSAVECOUNT}/6`}</Button> */}
+            {/* <Select
               placeholder={'임시 저장 편지 불러오기'}
               border={'2px'}
               borderColor={'#FF6000'}
@@ -108,11 +170,11 @@ const Page = () => {
               {draftLetter.map((letter, idx) => (
                 <option key={idx}>{letter.title}</option>
               ))}
-            </Select>
+            </Select> */}
           </HStack>
         </HStack>
         <HStack w={'100%'} justifyContent={'space-between'}>
-          <IconButton
+          {/* <IconButton
             onClick={decreaseCurrentLetterIndex}
             aria-label="이전 편지"
             icon={<ArrowBackIcon />}
@@ -121,11 +183,9 @@ const Page = () => {
             borderColor={'#FF6000'}
             bgColor={'#FFE0CD'}
             textColor={'#FF6000'}
-          />
+          /> */}
           <Editable
-            defaultValue={
-              '사전 질문의 답변으로 사용자 문체를 파악하고 아키네이터가 질문지 답변을 바탕으로 내용을 구성하여 편지 1을 보여줍니다. 그리고 사용자가 후속으로 직접 수정할 수 있으며 완성된 편지는 사용자 데이터로 남아 기존의 사용자 데이터 + 아카이빙 데이터 형식으로 누적됩니다.'
-            }
+            defaultValue={letter[currentLetterIndex].body}
             w={'100%'}
             h={'20em'}
             border={'2px'}
@@ -134,9 +194,9 @@ const Page = () => {
             rounded={'10px'}
           >
             <EditablePreview />
-            <EditableTextarea h={'100%'} />
+            <EditableTextarea h={'100%'} ref={bodyRef} />
           </Editable>
-          <IconButton
+          {/* <IconButton
             onClick={increaseCurrentLetterIndex}
             aria-label="다음 편지"
             icon={<ArrowForwardIcon />}
@@ -145,7 +205,7 @@ const Page = () => {
             borderColor={'#FF6000'}
             bgColor={'#FFE0CD'}
             textColor={'#FF6000'}
-          />
+          /> */}
         </HStack>
         <HStack>
           <Center
@@ -162,10 +222,12 @@ const Page = () => {
             placeholder={'편지 쓰는 대상을 적어주세요'}
             border={'2px'}
             borderColor={'#FF6000'}
+            defaultValue={letter[currentLetterIndex].from}
+            ref={fromRef}
           />
         </HStack>
         <HStack mx={'auto'}>
-          {state === 'create' ? (
+          {/* {state === 'create' ? (
             <Button
               onClick={onOpen}
               rounded={'30px'}
@@ -177,9 +239,9 @@ const Page = () => {
                 <Text fontSize={'xs'}>{`(${DUMMYLOADCOUNT}/3)`}</Text>
               </VStack>
             </Button>
-          ) : null}
+          ) : null} */}
           <Button
-            onClick={() => setState('decorate')}
+            onClick={goToDecorate}
             rounded={'30px'}
             bgColor={'#FF6000'}
             textColor={'white'}
