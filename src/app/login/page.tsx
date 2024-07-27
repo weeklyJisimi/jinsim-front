@@ -32,7 +32,11 @@ const Login = () => {
       <Box>아이디</Box>
       <Input value={id} onChange={(e) => setId(e.target.value)} />
       <Box>비밀번호</Box>
-      <Input value={pw} onChange={(e) => setPw(e.target.value)} />
+      <Input
+        type="password"
+        value={pw}
+        onChange={(e) => setPw(e.target.value)}
+      />
       <Button
         onClick={async () => {
           if (id === '' || pw === '') {
