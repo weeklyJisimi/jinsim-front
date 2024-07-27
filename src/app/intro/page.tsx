@@ -20,6 +20,7 @@ import Jinsimi from '@/component/common/jinsimi';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import { axiosInstance } from '@/utils/axiosInstance';
+import { useCharacteristicsStore } from '../letter/style_characteristics';
 
 const CharacterPanel = ({ headText }: { headText: string }) => {
   return (
@@ -40,19 +41,26 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
   ];
 
   const [answers, setAnswers] = useState(['', '', '']);
+  const { setStyleCharacteristics } = useCharacteristicsStore();
   const onSubmit = async () => {
     if (answers.some((answer) => answer.length < 30)) {
       alert('모든 문항을 30자 이상 작성해주세요');
       return;
     }
-    await axiosInstance.post(
+    const res = await axiosInstance.post(
       `${process.env.NEXT_PUBLIC_API_URL}/analyze-style`,
       {
         text1: answers[0],
         text2: answers[1],
         text3: answers[2],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       }
     );
+    setStyleCharacteristics(res.data.style_characteristics);
     setIndex((prev: number) => prev + 1);
   };
 
