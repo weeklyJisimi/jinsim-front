@@ -29,20 +29,28 @@ import { useToPng } from '@hugocxl/react-to-image';
 import { useLetterFlowStore } from '../letter-flow-store';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { bgImageData, bgImageType } from './bgImage';
+import { useLetterDbStore } from '../letter-db-store';
 
 const Page = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const openButtonRef = useRef(null);
   const { setState } = useLetterFlowStore();
   const { letter, currentLetterIndex } = useLetterStore();
-  const [imageSrc, setImageSrc] = useState<string | undefined>();
+  const { setLetter } = useLetterDbStore();
   const [{ status, isLoading }, convertToImage, ref] = useToPng<HTMLDivElement>(
     {
       onStart: () => {
         console.log('onStart');
       },
       onSuccess: (data) => {
-        setImageSrc(data);
+        setLetter({
+          title: letter[currentLetterIndex].title,
+          body: letter[currentLetterIndex].body,
+          to: letter[currentLetterIndex].to,
+          from: letter[currentLetterIndex].from,
+          image: data,
+        });
+        setState('complete');
       },
       onError: (error) => {
         console.error(error);
@@ -96,7 +104,7 @@ const Page = () => {
           <Button onClick={() => setState('create')}>
             <Text>편지 수정</Text>
           </Button>
-          <Button>
+          <Button onClick={convertToImage}>
             <Text>편지 완성하기</Text>
           </Button>
         </HStack>
