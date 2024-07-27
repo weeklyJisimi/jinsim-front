@@ -25,6 +25,7 @@ const Page = () => {
       >
         <FairyJinsimi />
       </Button>
+      <Text>진심이를 클릭하여 편지 쓰러 가기!</Text>
     </VStack>
   );
 };
