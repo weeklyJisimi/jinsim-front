@@ -1,10 +1,28 @@
 'use client';
 
-import { Box, Grid, GridItem, HStack, Select, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Grid,
+  GridItem,
+  Heading,
+  HStack,
+  Select,
+  VStack,
+  Text,
+  Image,
+} from '@chakra-ui/react';
 import Header from '@/component/layout/header';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const View = () => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ['viewData'],
+    queryFn: async () =>
+      await axios(`${process.env.NEXT_PUBLIC_API_URL}/letter/view`),
+  });
+
   const mockUpData = [
     {
       title: '편지1',
@@ -26,27 +44,23 @@ const View = () => {
       img: 'img4',
       id: 4,
     },
-    {
-      title: '편지5',
-      img: 'img5',
-      id: 5,
-    },
-    {
-      title: '편지6',
-      img: 'img6',
-      id: 6,
-    },
   ];
 
   const toNames = ['개발진', '권호정', '개발팀'];
 
   return (
-    <VStack gap={'1rem'} w={'100%'}>
-      <Header title={'편지함'} />
+    <VStack gap={'1rem'} w={'80%'}>
+      <Header />
+      <HStack justify={'flex-start'} w={'100%'}>
+        <Heading textColor={'#FF6000'}>보관함</Heading>
+      </HStack>
       <HStack w={'100%'} alignItems={'center'} justifyContent={'space-between'}>
-        <Box>보관 가능 편지 1/10</Box>
+        <Text textColor={'#FF8B45'} fontWeight={'bold'}>
+          보관 가능 편지 {mockUpData.length}/6
+        </Text>
         <HStack gap={1}>
           <Select
+            disabled
             w={'10rem'}
             onChange={(select) => {
               console.log(select.target.value);
@@ -70,17 +84,24 @@ const View = () => {
           </Select>
         </HStack>
       </HStack>
-      <Box w={'100%'}>
+      <Box w={'100%'} px={10} py={2}>
         <Grid templateColumns="repeat(4, 1fr)" gap={6}>
-          {mockUpData.map((data) => (
-            <GridItem w="100%" h="35vh" border={'1px solid'} key={data?.title}>
+          {mockUpData.map((data, index) => (
+            <GridItem
+              w="100%"
+              h="50vh"
+              border={'1px solid #FF6000'}
+              key={data?.title}
+            >
               <VStack h={'100%'}>
                 <Link href={`/letter/view/${data?.id}`}>
-                  <Box bg={'white'} flexGrow={1}>
-                    {data?.img}
+                  <Box flexGrow={1}>
+                    <Image src={`/bg${index + 1}.jpg`} />
                   </Box>
                 </Link>
-                <Box h={'2rem'}>{data?.title}</Box>
+                <HStack align={'center'}>
+                  <Box h={'2rem'}>{data?.title}</Box>
+                </HStack>
               </VStack>
             </GridItem>
           ))}

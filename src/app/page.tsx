@@ -27,6 +27,7 @@ import { BellIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
 import { useLetterFlowStore } from './letter/letter-flow-store';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const alertData = [
   { type: 'alert', content: '새로운 편지가 도착했습니다' },
@@ -40,6 +41,13 @@ export default function Home() {
   const { setState } = useLetterFlowStore();
   const router = useRouter();
 
+  useEffect(() => {
+    if (localStorage.getItem('token') === null) {
+      alert('로그인이 필요합니다');
+      router.push('/login');
+    }
+  }, []);
+
   return (
     <VStack w={'100%'} h={'100vh'} bgImage={'mainBackground.png'}>
       <MainPageLayout />
@@ -52,7 +60,7 @@ export default function Home() {
               alignItems={'flex-start'}
             >
               <VStack>
-                <Link href={'/calender'}>
+                <Link href={'/calendar'}>
                   <Button
                     w={'70px'}
                     h={'70px'}
@@ -81,7 +89,7 @@ export default function Home() {
                   px={'90px'}
                   fontSize={'50px'}
                 >
-                  편지 안 쓴지 ______ 일 째
+                  편지 안 쓴지 0 일 째
                 </Heading>
                 <Text fontWeight={'black'} fontSize={'30px'}>
                   편지를 작성하여 나만의 진심이를 키워보세요!

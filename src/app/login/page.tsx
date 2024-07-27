@@ -1,6 +1,14 @@
 'use client';
 
-import { Box, Button, Heading, HStack, Input, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Heading,
+  HStack,
+  Img,
+  Input,
+  VStack,
+} from '@chakra-ui/react';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -18,9 +26,9 @@ const Login = () => {
           로그인 페이지
         </Heading>
       </HStack>
-      <Box h={'20'} w={'20'} mx={'auto'} bgColor={'orange'}>
-        로고
-      </Box>
+      <HStack justify={'center'}>
+        <Img src={'/logo.png'} alt={'logo'} h={'200px'} w={'200px'} />
+      </HStack>
       <Box>아이디</Box>
       <Input value={id} onChange={(e) => setId(e.target.value)} />
       <Box>비밀번호</Box>
@@ -40,8 +48,7 @@ const Login = () => {
               }
             );
             localStorage.setItem('token', res?.data.token);
-            alert('로그인에 성공했습니다');
-            router.push('/');
+            router.push('/intro');
           } catch (e) {
             alert('로그인에 실패했습니다');
           }

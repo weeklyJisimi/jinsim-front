@@ -1,17 +1,14 @@
-import { Box, Center, Heading, HStack } from '@chakra-ui/react';
+import { Box, Center, Heading, HStack, Img } from '@chakra-ui/react';
+import Link from 'next/link';
 
-const Header = ({ title }: { title?: string }) => {
+const Header = () => {
   return (
-    <HStack as={'header'} h={16} w={'100%'} px={'6'} bgColor={'orange'}>
-      <Box flex={1}>
-        <Heading as="h5" size="sm">
-          {title ?? ''}
-        </Heading>
-      </Box>
+    <HStack as={'header'} h={16} w={'100%'} px={'6'} mt={'6'}>
       <Center flex={1} w={'100%'}>
-        로고
+        <Link href={'/'}>
+          <Img src={'/logo.png'} alt={'logo'} h={'100px'} />
+        </Link>
       </Center>
-      <Box flex={1} />
     </HStack>
   );
 };

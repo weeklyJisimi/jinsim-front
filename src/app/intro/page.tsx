@@ -20,13 +20,14 @@ import Jinsimi from '@/component/common/jinsimi';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import { axiosInstance } from '@/utils/axiosInstance';
+import FairyJinsimi from '@/component/common/FairyJinsimi';
 
 const CharacterPanel = ({ headText }: { headText: string }) => {
   return (
     <>
       <Heading>{headText}</Heading>
       <Box w={'30vh'}>
-        <Jinsimi />
+        <FairyJinsimi />
       </Box>
     </>
   );
@@ -34,9 +35,9 @@ const CharacterPanel = ({ headText }: { headText: string }) => {
 
 const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
   const QUESTIONS = [
-    'Q1. (진심이가 되어)3년 지기 친구에게 생일 축하 메시지를 건네보세요.',
-    'Q2. (진심이가 되어)어머니께 설날 새해 복을 기원하는 메시지를 건네보세요',
-    'Q3. (진심이가 되어)층간소음 문제를 겪은 아랫집 주민에게 사과하는 메시지를 건네보세요.',
+    'Q. (진심이가 되어) 3년 지기 친구에게 생일 축하 메시지를 건네보세요.',
+    'Q2. (진심이가 되어) 어머니께 설날 새해 복을 기원하는 메시지를 건네보세요',
+    'Q3. (진심이가 되어) 층간소음 문제를 겪은 아랫집 주민에게 사과하는 메시지를 건네보세요.',
   ];
 
   const [answers, setAnswers] = useState(['', '', '']);
@@ -51,6 +52,11 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
         text1: answers[0],
         text2: answers[1],
         text3: answers[2],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       }
     );
     setIndex((prev: number) => prev + 1);
@@ -58,9 +64,9 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
 
   return (
     <VStack my={2}>
-      <Heading>(진심이가 되어) 자유롭게 편지를 써주세요!</Heading>
+      <Heading>진심이가 되어 자유롭게 편지를 써주세요!</Heading>
       <Box w={'30vh'}>
-        <Jinsimi />
+        <FairyJinsimi />
       </Box>
       <Accordion w={'100%'} allowMultiple>
         {QUESTIONS.map((question, index) => (
@@ -119,7 +125,7 @@ export default function IntroPage() {
         return (
           <>
             <CharacterPanel
-              headText={'(상황에 맞춰) 자유롭게 편지를 써주세요!'}
+              headText={'진심이가 되어 자유롭게 편지를 써주세요!'}
             />
             <Button
               onClick={() => {

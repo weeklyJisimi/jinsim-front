@@ -19,7 +19,7 @@ const scheduleData = [
 const SchedulePanel = () => {
   return (
     <VStack w={'350px'} gap={0}>
-      <Box w={'100%'} p={2} bg={'orange'} border={'1px solid black'}>
+      <Box w={'100%'} p={2} bg={'#FF8B45'} border={'1px solid black'}>
         오늘
       </Box>
       {scheduleData.map((data, index) => (
@@ -33,7 +33,7 @@ const SchedulePanel = () => {
           </HStack>
         </HStack>
       ))}
-      <Box w={'100%'} p={2} bg={'orange'} border={'1px solid black'}>
+      <Box w={'100%'} p={2} bg={'#FF8B45'} border={'1px solid black'}>
         다가오는 날
       </Box>
       {scheduleData.map((data, index) => (
@@ -60,7 +60,10 @@ const CalendarPage = () => {
 
   return (
     <VStack w={'100%'} h={'100vh'}>
-      <Header title={'캘린더'} />
+      <Header />
+      <HStack w={'100%'} justify={'center'}>
+        <Heading textColor={'#FF6000'}>캘린더</Heading>
+      </HStack>
       <VStack w={'100%'} justify={'center'} align={'center'} h={'100%'}>
         <HStack>
           <Box border={'1px solid black'}>
