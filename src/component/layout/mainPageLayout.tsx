@@ -6,6 +6,7 @@ import {
   Center,
   HStack,
   IconButton,
+  Img,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -27,24 +28,17 @@ const MainPageLayout = () => {
   ];
 
   return (
-    <HStack
-      as={'header'}
-      h={16}
-      w={'100%'}
-      px={'6'}
-      justify="space-between"
-      bgColor={'orange'}
-    >
-      <HStack flex={1}>
-        <Link href={'/calendar'}>
+    <HStack as={'header'} h={'100px'} w={'100%'} justify={'center'}>
+      {/* <HStack flex={1}>
+        <Link href={'/calender'}>
           <Button>캘린더</Button>
         </Link>
         <Link href={'/letter/view'}>
           <Button>편지함</Button>
         </Link>
-      </HStack>
-      <Center flex={1}>로고</Center>
-      <HStack justify="flex-end" flex={1}>
+      </HStack> */}
+      <Img src={'/logo.png'} alt={'logo'} h={'100px'} />
+      {/* <HStack justify="flex-end" flex={1}>
         <Popover>
           <PopoverTrigger>
             <IconButton
@@ -66,7 +60,7 @@ const MainPageLayout = () => {
             </PopoverBody>
           </PopoverContent>
         </Popover>
-      </HStack>
+      </HStack> */}
     </HStack>
   );
 };
