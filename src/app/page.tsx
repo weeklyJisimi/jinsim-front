@@ -30,11 +30,13 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 const alertData = [
-  { type: 'alert', content: '새로운 편지가 도착했습니다' },
-  { type: 'alert', content: '새로운 댓글이 달렸습니다' },
-  { type: 'alert', content: '새로운 공지사항이 있습니다' },
-  { type: 'alert', content: '새로운 이벤트가 있습니다' },
-  { type: 'alert', content: '새로운 소식이 있습니다' },
+  { type: '캘린더', content: 'D-14 2024-08-01 내 친구 입사' },
+  { type: '구독요금제', content: 'Pro 요금제가 10일 뒤 만료됩니다.' },
+  {
+    type: '진심이질문',
+    content:
+      '오늘은 비가 많이 오네요. 함께 우산을 나눠썼던 누군가에게 편지를 써봅시다.',
+  },
 ];
 
 export default function Home() {
@@ -113,8 +115,16 @@ export default function Home() {
                     <PopoverCloseButton />
                     <PopoverBody>
                       {alertData?.map((alert) => (
-                        <VStack key={alert.content}>
-                          <Box>{alert.type}</Box>
+                        <VStack key={alert.content} p={1}>
+                          <Box
+                            w={'50%'}
+                            borderRadius={'20px'}
+                            bg={'#FF6000'}
+                            textAlign={'center'}
+                            textColor={'white'}
+                          >
+                            {alert.type}
+                          </Box>
                           <Box>{alert.content}</Box>
                         </VStack>
                       ))}
