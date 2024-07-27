@@ -32,7 +32,7 @@ const Page = () => {
         }
       )
       .then((res) => {
-        setLetterUrl(res.data.letter);
+        setLetterUrl(res.data.id);
       });
   }, []);
 
