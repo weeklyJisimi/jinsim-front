@@ -62,6 +62,11 @@ const Page = () => {
   const DUMMYLOADCOUNT = 3;
   // TODO : 초기 편지를 불러오는 함수를 만들어야 함.
 
+  const titleRef = useRef<HTMLInputElement>(null);
+  const toRef = useRef<HTMLInputElement>(null);
+  const fromRef = useRef<HTMLInputElement>(null);
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
+
   useEffect(() => {
     const generateLetter = async () => {
       const response = await axios.post(
@@ -76,7 +81,6 @@ const Page = () => {
           },
         }
       );
-      console.log(response.data.generated_letter);
       addNewLetter({
         title: `새로운 편지`,
         to: '',
@@ -89,7 +93,24 @@ const Page = () => {
     }
   }, []);
 
-  console.log(letter);
+  const goToDecorate = () => {
+    if (
+      titleRef.current?.value === '' ||
+      toRef.current?.value === '' ||
+      fromRef.current?.value === '' ||
+      bodyRef.current?.value === ''
+    ) {
+      alert('입력되지 않은 항목이 있습니다.');
+      return;
+    }
+    addNewLetter({
+      title: titleRef.current?.value || '',
+      to: toRef.current?.value || '',
+      from: fromRef.current?.value || '',
+      body: bodyRef.current?.value || '',
+    });
+    setState('decorate');
+  };
 
   // useEffect(() => {
   //   if (draftLetter) {
@@ -110,7 +131,7 @@ const Page = () => {
           textDecoration={'underline'}
         >
           <EditablePreview />
-          <EditableInput />
+          <EditableInput ref={titleRef} />
         </Editable>
         <HStack w={'100%'} justifyContent={'space-between'}>
           <HStack>
@@ -125,6 +146,7 @@ const Page = () => {
               To.
             </Center>
             <Input
+              ref={toRef}
               placeholder={'편지 받는 대상을 적어주세요'}
               border={'2px'}
               borderColor={'#FF6000'}
@@ -170,7 +192,7 @@ const Page = () => {
             rounded={'10px'}
           >
             <EditablePreview />
-            <EditableTextarea h={'100%'} />
+            <EditableTextarea h={'100%'} ref={bodyRef} />
           </Editable>
           {/* <IconButton
             onClick={increaseCurrentLetterIndex}
@@ -199,6 +221,7 @@ const Page = () => {
             border={'2px'}
             borderColor={'#FF6000'}
             defaultValue={letter[currentLetterIndex].from}
+            ref={fromRef}
           />
         </HStack>
         <HStack mx={'auto'}>
@@ -216,7 +239,7 @@ const Page = () => {
             </Button>
           ) : null} */}
           <Button
-            onClick={() => setState('decorate')}
+            onClick={goToDecorate}
             rounded={'30px'}
             bgColor={'#FF6000'}
             textColor={'white'}
