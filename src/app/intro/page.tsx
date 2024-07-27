@@ -45,11 +45,14 @@ const LiteraryPanel = ({ setIndex }: { setIndex: any }) => {
       alert('모든 문항을 30자 이상 작성해주세요');
       return;
     }
-    await axiosInstance.post(`${process.env.NEXT_PUBLIC_API_URL}/analyze-style`, {
-      text1: answers[0],
-      text2: answers[1],
-      text3: answers[2],
-    });
+    await axiosInstance.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/analyze-style`,
+      {
+        text1: answers[0],
+        text2: answers[1],
+        text3: answers[2],
+      }
+    );
     setIndex((prev: number) => prev + 1);
   };
 
@@ -102,7 +105,7 @@ export default function IntroPage() {
       `${process.env.NEXT_PUBLIC_API_URL}/auth/kakao/callback`,
       {
         code,
-      },
+      }
     );
     console.log('res', res);
   };
