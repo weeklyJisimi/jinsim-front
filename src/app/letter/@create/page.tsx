@@ -54,6 +54,7 @@ const Page = () => {
     decreaseCurrentLetterIndex,
     addNewLetters,
     addNewLetter,
+    setLetterIndex,
   } = useLetterStore();
   const { setState } = useLetterFlowStore();
   const { styleCharacteristics } = useCharacteristicsStore();
@@ -109,6 +110,7 @@ const Page = () => {
       from: fromRef.current?.value || '',
       body: bodyRef.current?.value || '',
     });
+    setLetterIndex(letter.length - 1);
     setState('decorate');
   };
 
