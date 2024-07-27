@@ -38,7 +38,7 @@ const View = () => {
     },
   ];
 
-  const toNames = ['김현지', '권호정', '개발팀'];
+  const toNames = ['개발진', '권호정', '개발팀'];
 
   return (
     <VStack gap={'1rem'} w={'100%'}>
@@ -56,6 +56,7 @@ const View = () => {
             <option value="createdAt">만든 날짜 순</option>
           </Select>
           <Select
+            disabled
             w={'10rem'}
             onChange={(select) => {
               console.log(select.target.value);
