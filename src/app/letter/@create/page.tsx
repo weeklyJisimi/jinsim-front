@@ -133,11 +133,11 @@ const Page = () => {
           </HStack>
           {/* TODO : 저장 버튼을 누르면 DB에 임시저장하고, 전역 상태에도 업데이트한다. */}
           <HStack>
-            <Button
+            {/* <Button
               w={'158px'}
               bgColor={'#8B8B8B'}
               textColor={'white'}
-            >{`저장 ${DUMMYSAVECOUNT}/6`}</Button>
+            >{`저장 ${DUMMYSAVECOUNT}/6`}</Button> */}
             {/* <Select
               placeholder={'임시 저장 편지 불러오기'}
               border={'2px'}
@@ -150,7 +150,7 @@ const Page = () => {
           </HStack>
         </HStack>
         <HStack w={'100%'} justifyContent={'space-between'}>
-          <IconButton
+          {/* <IconButton
             onClick={decreaseCurrentLetterIndex}
             aria-label="이전 편지"
             icon={<ArrowBackIcon />}
@@ -159,7 +159,7 @@ const Page = () => {
             borderColor={'#FF6000'}
             bgColor={'#FFE0CD'}
             textColor={'#FF6000'}
-          />
+          /> */}
           <Editable
             defaultValue={letter[currentLetterIndex].body}
             w={'100%'}
@@ -172,7 +172,7 @@ const Page = () => {
             <EditablePreview />
             <EditableTextarea h={'100%'} />
           </Editable>
-          <IconButton
+          {/* <IconButton
             onClick={increaseCurrentLetterIndex}
             aria-label="다음 편지"
             icon={<ArrowForwardIcon />}
@@ -181,7 +181,7 @@ const Page = () => {
             borderColor={'#FF6000'}
             bgColor={'#FFE0CD'}
             textColor={'#FF6000'}
-          />
+          /> */}
         </HStack>
         <HStack>
           <Center
@@ -202,7 +202,7 @@ const Page = () => {
           />
         </HStack>
         <HStack mx={'auto'}>
-          {state === 'create' ? (
+          {/* {state === 'create' ? (
             <Button
               onClick={onOpen}
               rounded={'30px'}
@@ -214,7 +214,7 @@ const Page = () => {
                 <Text fontSize={'xs'}>{`(${DUMMYLOADCOUNT}/3)`}</Text>
               </VStack>
             </Button>
-          ) : null}
+          ) : null} */}
           <Button
             onClick={() => setState('decorate')}
             rounded={'30px'}
